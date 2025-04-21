@@ -1,12 +1,13 @@
-const { signUpRequest } = require("@/api/auth/index.js");
-const { useMutation } = require("@tanstack/react-query");
+import { signUpRequest } from "@/api/auth/index.js";
+import { useMutation } from "@tanstack/react-query";
 
-const useSignup = () => {
+export const useSignup = () => {
   const {
+    data,
     isPending,
     isSuccess,
     error,
-    mutate: singupMutation,
+    mutateAsync: signupMutation,
   } = useMutation({
     mutationFn: signUpRequest,
     onSuccess: (data) => {
@@ -17,10 +18,5 @@ const useSignup = () => {
     },
   });
 
-  return {
-    isPending,
-    isSuccess,
-    error,
-    mutate: singupMutation,
-  };
+  return { data, isPending, isSuccess, error, signupMutation };
 };

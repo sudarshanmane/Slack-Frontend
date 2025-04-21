@@ -5,65 +5,95 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card.jsx";
-import React, { useState } from "react";
-import { cn } from "./../../../lib/utils";
+import React from "react";
 import { Input } from "@/components/ui/input.jsx";
 import { Button } from "@/components/ui/button.jsx";
 import { Separator } from "@/components/ui/separator.jsx";
+import { LucideLoader2, TriangleAlert } from "lucide-react";
+import { FaCheck } from "react-icons/fa";
 
-const SignupCard = () => {
-  const [signupForm, setSignupForm] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    username: "",
-  });
+const SignupCard = ({
+  onSignUpFormSubmit,
+  signupForm,
+  setSignupForm,
+  validationError,
+  isPending,
+  isSuccess,
+  error,
+}) => {
   return (
     <Card className={"bg-white "}>
       <CardHeader>
         <CardTitle>Sign Up</CardTitle>
         <CardDescription>Sign up to access your account!</CardDescription>
+        {validationError && (
+          <div className="bg-red-800/10 mt-3 p-4 text-red-700 text-sm rounded-sm">
+            {validationError}
+          </div>
+        )}
+
+        {error && (
+          <div className="bg-red-800/10 mt-3 p-4 text-red-300 text-sm rounded-sm flex gap-3">
+            <TriangleAlert className="size-5"></TriangleAlert>
+            {error?.err
+              ? error.err[0]
+              : error?.message || "Something Went Wron"}
+          </div>
+        )}
+
+        {isSuccess && (
+          <div className="bg-green-800/10 mt-3 p-4 gap-2 f text-green-700 text-sm rounded-sm flex flex-col text-center">
+            {isSuccess}
+            <div className="flex gap-3">
+              <FaCheck className="size-5"></FaCheck>
+              Successfully signed up!
+            </div>
+            <div className="flex gap-3">
+              <LucideLoader2 className="animate-spin"></LucideLoader2>
+              <p>You will be redired to the login page soon!</p>{" "}
+            </div>{" "}
+          </div>
+        )}
       </CardHeader>
 
       <CardContent>
-        <form action="" className="space-y-3">
+        <form onSubmit={onSignUpFormSubmit} className="space-y-3">
           <Input
             placeholder="Username"
-            required
-            onChange={(e) =>
-              setSignupForm({ ...signupForm, username: e.targert.value })
-            }
-            value={signupForm.username}
-            type="email"
+            onInput={(e) => {
+              setSignupForm({ ...signupForm, username: e.target.value });
+            }}
+            default={signupForm.username}
+            type="text"
+            disabled={isPending}
           ></Input>
 
           <Input
             placeholder="Email"
-            required
-            onChange={(e) =>
-              setSignupForm({ ...signupForm, email: e.targert.value })
-            }
-            value={signupForm.email}
-            type="email"
+            onInput={(e) => {
+              setSignupForm({ ...signupForm, email: e.target.value });
+            }}
+            default={signupForm.email}
+            disabled={isPending}
           ></Input>
 
           <Input
             placeholder="Password"
-            required
-            onChange={(e) =>
-              setSignupForm({ ...signupForm, password: e.targert.value })
+            onInput={(e) =>
+              setSignupForm({ ...signupForm, password: e.target.value })
             }
-            value={signupForm.password}
+            default={signupForm.password}
+            disabled={isPending}
             type="text"
           ></Input>
 
           <Input
             placeholder="Confirm Password"
-            required
-            onChange={(e) =>
-              setSignupForm({ ...signupForm, confirmPassword: e.targert.value })
+            onInput={(e) =>
+              setSignupForm({ ...signupForm, confirmPassword: e.target.value })
             }
-            value={signupForm.confirmPassword}
+            default={signupForm.confirmPassword}
+            disabled={isPending}
             type="text"
           ></Input>
 
@@ -71,6 +101,8 @@ const SignupCard = () => {
             size={"lg"}
             type="submit"
             className="w-full bg-black text-white text-sm"
+            disabled={isPending}
+            loading={isPending}
           >
             Continue
           </Button>

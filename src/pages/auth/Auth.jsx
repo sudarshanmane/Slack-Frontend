@@ -1,11 +1,7 @@
-import SignupCard from "@/components/organisms/Auth/SignupCard.jsx";
-
-export const Auth = () => {
+export const Auth = ({ children }) => {
   return (
-    <div className="h-[100vh] w-[100vw] flex items-center justify-center bg-[#5c3B58]">
-      <div className="md:h-auto md:w-[420px] ">
-        <SignupCard></SignupCard>
-      </div>{" "}
+    <div className="h-[100vh] w-[100vw] flex items-center justify-center bg-slack">
+      <div className="md:h-auto md:w-[420px] ">{children}</div>
     </div>
   );
 };

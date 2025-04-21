@@ -1,18 +1,42 @@
 import { Route, Routes } from "react-router-dom";
-import { Button } from "./components/ui/button.jsx";
+import { Toaster } from "@/components/ui/sonner";
 
 import "./index.css";
 
-import { useState } from "react";
-import { Auth } from "./pages/auth/Auth.jsx";
+import { Auth } from "@/pages/auth/Auth.jsx";
+import SigninCard from "@/components/organisms/Auth/SignInCard";
+import NotFound from "./pages/NotFound.jsx";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import SignupContainer from "./components/organisms/Auth/SignupContainer.jsx";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  const queryClient = new QueryClient();
   return (
-    <Routes>
-      <Route path="/auth" element={<Auth></Auth>}></Route>
-    </Routes>
+    <QueryClientProvider client={queryClient}>
+      <Routes>
+        <Route
+          path="/auth/signin"
+          element={
+            <Auth>
+              <SigninCard></SigninCard>
+            </Auth>
+          }
+        ></Route>
+
+        <Route
+          path="/auth/signup"
+          element={
+            <Auth>
+              <SignupContainer></SignupContainer>
+            </Auth>
+          }
+        ></Route>
+
+        <Route path="*" element={<NotFound></NotFound>}></Route>
+      </Routes>
+      <Toaster></Toaster>
+    </QueryClientProvider>
   );
 }
 
