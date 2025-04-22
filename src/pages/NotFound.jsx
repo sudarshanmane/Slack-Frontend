@@ -1,12 +1,10 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card.jsx";
 import React from "react";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button.jsx";
 import { useNavigate } from "react-router-dom";
 

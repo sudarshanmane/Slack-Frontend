@@ -18,12 +18,15 @@ export const signUpRequest = async ({ email, password, username }) => {
   }
 };
 
-export const singInRequest = async (email, password) => {
+export const singInRequest = async ({ email, password }) => {
   try {
-    const response = await axiosConfig.post("/users/signin", {
-      email,
-      password,
-    });
+    const response = await axiosConfig.post(
+      "http://localhost:3000/api/v1" + "/users/signin",
+      {
+        email,
+        password,
+      }
+    );
 
     return response.data;
   } catch (error) {

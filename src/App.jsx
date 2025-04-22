@@ -1,41 +1,36 @@
-import { Route, Routes } from "react-router-dom";
 import { Toaster } from "@/components/ui/sonner";
 
 import "./index.css";
 
-import { Auth } from "@/pages/auth/Auth.jsx";
-import SigninCard from "@/components/organisms/Auth/SignInCard";
-import NotFound from "./pages/NotFound.jsx";
-
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import SignupContainer from "./components/organisms/Auth/SignupContainer.jsx";
+
+import { AppContextProvider } from "./context/AppContextProvider";
+import { AppRoutes } from "./Routes.jsx";
 
 function App() {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <Routes>
-        <Route
-          path="/auth/signin"
-          element={
-            <Auth>
-              <SigninCard></SigninCard>
-            </Auth>
-          }
-        ></Route>
-
-        <Route
-          path="/auth/signup"
-          element={
-            <Auth>
-              <SignupContainer></SignupContainer>
-            </Auth>
-          }
-        ></Route>
-
-        <Route path="*" element={<NotFound></NotFound>}></Route>
-      </Routes>
-      <Toaster></Toaster>
+      <AppContextProvider>
+        <AppRoutes></AppRoutes>
+        <Toaster
+          position="top-center"
+          closeButton={true}
+          toastOptions={{
+            duration: 60000,
+            style: {
+              background: "orange",
+              color: "black",
+            },
+            classNames: {
+              toast: "border border-black bg-white text-black",
+              title: "text-black",
+              description: "text-teal-400",
+              closeButton: "text-black",
+            },
+          }}
+        />
+      </AppContextProvider>
     </QueryClientProvider>
   );
 }
