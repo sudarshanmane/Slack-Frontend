@@ -10,54 +10,32 @@ import React, { useState } from "react";
 
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { LogOutIcon, Settings2Icon } from "lucide-react";
 
 const UserButton = () => {
   const { auth } = useAuth();
 
-  const [showStatusBar, setShowStatusBar] = useState(true);
-  const [showActivityBar, setShowActivityBar] = useState(false);
-  const [showPanel, setShowPanel] = useState(false);
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        {/* <Button variant="outline">Open</Button> */}
-
-        <Avatar className="borde-1 flex justify-center items-center">
-          <AvatarImage src={auth?.user?.avata} />
+        <Avatar className="size-10 hover:opacity-65 transition">
+          <AvatarImage src={auth?.user?.avatar} />
           <AvatarFallback className={"font-semibold border"}>
             {auth?.user?.username?.charAt(0).toUpperCase()}
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuCheckboxItem
-          checked={showStatusBar}
-          onCheckedChange={setShowStatusBar}
-        >
-          Status Bar
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem
-          checked={showActivityBar}
-          onCheckedChange={setShowActivityBar}
-          disabled
-        >
-          Activity Bar
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem
-          checked={showPanel}
-          onCheckedChange={setShowPanel}
-        >
-          Panel
-        </DropdownMenuCheckboxItem>
+      <DropdownMenuContent className="">
+        <DropdownMenuItem>
+          <Settings2Icon></Settings2Icon> Setting
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <LogOutIcon></LogOutIcon> Logout
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
