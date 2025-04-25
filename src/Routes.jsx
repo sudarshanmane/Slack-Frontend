@@ -3,12 +3,14 @@ import { Route, Routes } from "react-router-dom";
 import "./index.css";
 
 import { Auth } from "@/pages/auth/Auth.jsx";
-import NotFound from "./pages/NotFound.jsx";
+import NotFound from "./pages/notFound/NotFound.jsx";
 
 import SignupContainer from "./components/organisms/Auth/SignupContainer.jsx";
 import SignInContailer from "./components/organisms/Auth/SignInContailer";
-import Home from "./pages/Home.jsx";
-import ProtectedRoutes from "./components/molecules/ProtectedRoutes.jsx";
+import Home from "./pages/home/Home.jsx";
+import ProtectedRoutes from "./components/molecules/protectedRoutes/ProtectedRoutes.jsx";
+import WokrspaceLayout from "./pages/workspace/WokrspaceLayout.jsx";
+import WorkspaceOptions from "./components/organisms/Workspace/WorkspaceOptions";
 
 export const AppRoutes = () => {
   return (
@@ -36,6 +38,17 @@ export const AppRoutes = () => {
         element={
           <ProtectedRoutes>
             <Home></Home>
+          </ProtectedRoutes>
+        }
+      ></Route>
+
+      <Route
+        path="/workspaces/:workspaceId?"
+        element={
+          <ProtectedRoutes>
+            <WokrspaceLayout>
+              <WorkspaceOptions></WorkspaceOptions>
+            </WokrspaceLayout>
           </ProtectedRoutes>
         }
       ></Route>

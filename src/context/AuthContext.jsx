@@ -20,8 +20,17 @@ const AuthContextProvider = ({ children }) => {
     }
   }, []);
 
+  async function logout() {
+    localStorage.removeItem("user");
+    localStorage.removeItem("auth");
+
+    setAuth({
+      isLoading: false,
+    });
+  }
+
   return (
-    <AuthContext.Provider value={{ auth, setAuth }}>
+    <AuthContext.Provider value={{ auth, setAuth, logout }}>
       {children}
     </AuthContext.Provider>
   );

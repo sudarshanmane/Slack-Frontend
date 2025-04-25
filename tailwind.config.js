@@ -4,7 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        slack: colors.black,
+        slack: {
+          dark: "#481349",
+        },
       },
     },
   },

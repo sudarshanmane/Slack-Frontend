@@ -2,14 +2,11 @@ import axiosConfig from "@/config/axiosConfig.js";
 
 export const signUpRequest = async ({ email, password, username }) => {
   try {
-    const response = await axiosConfig.post(
-      "http://localhost:3000/api/v1" + "/users/signup",
-      {
-        email,
-        password,
-        username,
-      }
-    );
+    const response = await axiosConfig.post("/users/signup", {
+      email,
+      password,
+      username,
+    });
 
     return response.data;
   } catch (error) {
@@ -20,13 +17,10 @@ export const signUpRequest = async ({ email, password, username }) => {
 
 export const singInRequest = async ({ email, password }) => {
   try {
-    const response = await axiosConfig.post(
-      "http://localhost:3000/api/v1" + "/users/signin",
-      {
-        email,
-        password,
-      }
-    );
+    const response = await axiosConfig.post("/users/signin", {
+      email,
+      password,
+    });
 
     return response.data;
   } catch (error) {

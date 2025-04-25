@@ -1,12 +1,10 @@
-"use client";
-
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar.jsx";
 import { useAuth } from "@/hooks/context/userAuth.js";
-import React, { useState } from "react";
+import React from "react";
 
 import {
   DropdownMenu,
@@ -14,10 +12,31 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOutIcon, Settings2Icon } from "lucide-react";
+
+import { LogOutIcon, PencilIcon, Settings2Icon } from "lucide-react";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { useCreateWorkspaceModal } from "./../../../hooks/context/useCreateWorkspaceModel";
 
 const UserButton = () => {
-  const { auth } = useAuth();
+  const { auth, logout } = useAuth();
+  const navigate = useNavigate();
+
+  async function handleLogout() {
+    await logout();
+
+    toast("Successfully signed out!", {
+      varient: "desctructive",
+    });
+
+    navigate("/auth/signin");
+  }
+
+  const { setOpenCreateWorkspaceModal } = useCreateWorkspaceModal();
+
+  const handleCreateWorkspaceModal = () => {
+    setOpenCreateWorkspaceModal(true);
+  };
 
   return (
     <DropdownMenu>
@@ -33,7 +52,10 @@ const UserButton = () => {
         <DropdownMenuItem>
           <Settings2Icon></Settings2Icon> Setting
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={handleCreateWorkspaceModal}>
+          <PencilIcon></PencilIcon> Create Workspace
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleLogout()}>
           <LogOutIcon></LogOutIcon> Logout
         </DropdownMenuItem>
       </DropdownMenuContent>

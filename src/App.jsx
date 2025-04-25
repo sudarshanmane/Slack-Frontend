@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { AppContextProvider } from "./context/AppContextProvider";
 import { AppRoutes } from "./Routes.jsx";
+import { Modals } from "./components/organisms/Modals/Modals.jsx";
 
 function App() {
   const queryClient = new QueryClient();
@@ -13,15 +14,14 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AppContextProvider>
         <AppRoutes></AppRoutes>
+        <Modals></Modals>
+
         <Toaster
           position="top-center"
           closeButton={true}
           toastOptions={{
-            duration: 60000,
-            style: {
-              background: "orange",
-              color: "black",
-            },
+            duration: 6000,
+            style: {},
             classNames: {
               toast: "border border-black bg-white text-black",
               title: "text-black",
