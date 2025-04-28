@@ -24,10 +24,11 @@ const WorkspaceSwitcher = () => {
 
   useEffect(() => {
     if (!isFetchingAllData) {
+      console.log('inside fetching workpsaces')
       const otherWorkspaces = [];
 
       workspaces?.forEach((el) => {
-        if (el._id !== workspace._id) {
+        if (el._id !== workspace?._id) {
           otherWorkspaces.push(
             <DropdownMenuItem
               className={"cursor-pointer"}
@@ -42,7 +43,7 @@ const WorkspaceSwitcher = () => {
         setWorkspaces([...otherWorkspaces]);
       });
     }
-  }, [workspaces]);
+  }, [workspaces, isFetchingAllData]);
 
   const handleWorkspace = (id) => {
     navigate(`/workspaces/${id}`);

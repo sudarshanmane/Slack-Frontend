@@ -29,8 +29,12 @@ const AuthContextProvider = ({ children }) => {
     });
   }
 
+  const [workspaceId, setWorkspaceId] = useState();
+
   return (
-    <AuthContext.Provider value={{ auth, setAuth, logout }}>
+    <AuthContext.Provider
+      value={{ auth, setAuth, logout, setWorkspaceId, workspaceId }}
+    >
       {children}
     </AuthContext.Provider>
   );

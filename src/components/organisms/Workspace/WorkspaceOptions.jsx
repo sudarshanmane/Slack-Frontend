@@ -1,12 +1,6 @@
 import { Button } from "@/components/ui/button.jsx";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card.jsx";
 import { useGetWorkspaceById } from "@/hooks/workspace/useGetWorkspaceById.js";
-import {
-  AlertTriangleIcon,
-  InfoIcon,
-  Loader2Icon,
-  SearchIcon,
-} from "lucide-react";
+import { InfoIcon, SearchIcon } from "lucide-react";
 import React from "react";
 import { useParams } from "react-router-dom";
 
@@ -16,32 +10,32 @@ const WorkspaceOptions = () => {
   const { isSuccess, workspace, isFetching, error } =
     useGetWorkspaceById(workspaceId);
 
-  if (isFetching) {
-    return (
-      <div className="flex w-full h-[100vh] justify-center items-center">
-        <Loader2Icon className="animate-spin transition"></Loader2Icon>
-      </div>
-    );
-  }
+  // if (isFetching) {
+  //   return (
+  //     <div className="flex w-full h-[100vh] justify-center items-center">
+  //       <Loader2Icon className="animate-spin transition"></Loader2Icon>
+  //     </div>
+  //   );
+  // }
 
-  if (error) {
-    return (
-      <div className="w-full h-[100vh] flex justify-center items-center">
-        <Card className={"bg-red-100 border w-[400px] "}>
-          <CardHeader>
-            <CardTitle
-              className={
-                "text-red-600 flex flex-col gap-2 justify-center items-center"
-              }
-            >
-              <AlertTriangleIcon className="text-red-600 "></AlertTriangleIcon>{" "}
-              Someting went wrong!
-            </CardTitle>
-          </CardHeader>
-        </Card>
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div className="w-full h-[100vh] flex justify-center items-center">
+  //       <Card className={"bg-red-100 border w-[400px] "}>
+  //         <CardHeader>
+  //           <CardTitle
+  //             className={
+  //               "text-red-600 flex flex-col gap-2 justify-center items-center"
+  //             }
+  //           >
+  //             <AlertTriangleIcon className="text-red-600 "></AlertTriangleIcon>{" "}
+  //             Someting went wrong!
+  //           </CardTitle>
+  //         </CardHeader>
+  //       </Card>
+  //     </div>
+  //   );
+  // }
 
   return (
     <nav className="flex w-full bg-sky-800 h-[40px] justify-center items-center">

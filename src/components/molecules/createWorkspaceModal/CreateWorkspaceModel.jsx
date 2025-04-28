@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import { useCreateWorkspace } from "./../../../hooks/workspace/useCreateWorkspace";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button.jsx";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CreateWorkspaceModel = () => {
   const [workspaceDetails, setWorkspaceDetails] = useState({
@@ -17,22 +18,25 @@ const CreateWorkspaceModel = () => {
     description: "",
   });
 
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const { openCreateWorkspaceModal, setOpenCreateWorkspaceModal } =
     useCreateWorkspaceModal();
 
+  const { isPending, createWorspaceMutation } = useCreateWorkspace();
+
   const handleClose = () => {
     setOpenCreateWorkspaceModal(false);
   };
-
-  const { isPending, createWorspaceMutation } = useCreateWorkspace();
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
     try {
       const data = await createWorspaceMutation(workspaceDetails);
+      queryClient.invalidateQueries({ queryKey: ["fetchWorkspaces"] });
+
       if (data) {
         toast("Workspace Created Successfully");
         navigate("/workspaces");

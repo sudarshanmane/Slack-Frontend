@@ -13,7 +13,7 @@ const useFetchWorkspace = () => {
   } = useQuery({
     queryFn: () => fetchWorkspaceRequest({ token: auth.token }),
     queryKey: ["fetchWorkspaces"],
-    staleTime: 3000, // CONSIDER IT FOR THE BETTER USER EXPERIENCE
+    staleTime: 10000, // CONSIDER IT THE BETTER USER EXPERIENCE
     // refetchOnWindowFocus: false, // IT WILL STOP FETCHING THE DATA AGAIN AND AGAIN AFTER THREE SECOND ON WINDOW CHANGE
   });
 

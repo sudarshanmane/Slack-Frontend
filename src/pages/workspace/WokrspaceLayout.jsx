@@ -6,9 +6,21 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable.jsx";
-import React from "react";
+import { useAuth } from "@/hooks/context/userAuth.js";
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const WokrspaceLayout = ({ children }) => {
+  const { setWorkspaceId } = useAuth();
+
+  const { workspaceId } = useParams();
+
+  useEffect(() => {
+    if (workspaceId) {
+      setWorkspaceId(workspaceId);
+    }
+  }, [setWorkspaceId]);
+
   return (
     <div className="h-[calc(100vh-40px)]">
       <WorkspaceOptions></WorkspaceOptions>

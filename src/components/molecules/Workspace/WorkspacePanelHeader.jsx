@@ -9,6 +9,8 @@ import {
 import { ChevronDownIcon, ListFilterIcon, SquarePenIcon } from "lucide-react";
 import { useAuth } from "@/hooks/context/userAuth.js";
 import { Button } from "@/components/ui/button.jsx";
+import useWorkspacePreferencesModal from "@/hooks/context/useWorkspacePreferencesModal.jsx";
+import useCreateChannelModal from "@/hooks/context/useCreateChannelModal.js";
 
 const WorkspacePanelHeader = ({ workspace }) => {
   const { auth } = useAuth();
@@ -16,6 +18,21 @@ const WorkspacePanelHeader = ({ workspace }) => {
   const isAdmin = workspace?.members?.find(
     (member) => member?.memberId === auth?.user?._id && member?.role === "admin"
   );
+
+  const { setOpenUpdateWorkspaceModal, setWorkspaceDetails } =
+    useWorkspacePreferencesModal();
+
+  const { openCreateChannelModal, setOpenCreateChannelModal } =
+    useCreateChannelModal(workspace);
+
+  const handleUpdateWorkspaceModal = () => {
+    setWorkspaceDetails({ ...workspace });
+    setOpenUpdateWorkspaceModal(true);
+  };
+
+  const handleCreateChannelModel = () => {
+    setOpenCreateChannelModal(true);
+  };
 
   return (
     <div className="flex z-auto items-center justify-between px-4 h-[50px] gap-0.5 w-full">
@@ -46,12 +63,24 @@ const WorkspacePanelHeader = ({ workspace }) => {
           </DropdownMenuItem>
           {isAdmin && (
             <>
-              <DropdownMenuItem className={"cursor-pointer py-2"}>
+              <DropdownMenuItem
+                className={"cursor-pointer py-2"}
+                onClick={handleUpdateWorkspaceModal}
+              >
                 Preferenes
               </DropdownMenuItem>
               <DropdownMenuSeparator></DropdownMenuSeparator>
               <DropdownMenuItem className={"cursor-pointer py-2"}>
                 Invite people to {workspace?.name} workspace
+              </DropdownMenuItem>
+
+              <DropdownMenuSeparator></DropdownMenuSeparator>
+
+              <DropdownMenuItem
+                className={"cursor-pointer py-2"}
+                onClick={handleCreateChannelModel}
+              >
+                Create Channel
               </DropdownMenuItem>
             </>
           )}

@@ -6,9 +6,16 @@ const UpdateWorkspaceModalContextProvider = ({ children }) => {
   const [openUpdateWorkspaceModal, setOpenUpdateWorkspaceModal] =
     useState(false);
 
+  const [workspaceDetails, setWorkspaceDetails] = useState();
+
   return (
     <UpdateWorkspaceModalContext.Provider
-      value={{ openUpdateWorkspaceModal, setOpenUpdateWorkspaceModal }}
+      value={{
+        openUpdateWorkspaceModal,
+        setOpenUpdateWorkspaceModal,
+        workspaceDetails,
+        setWorkspaceDetails,
+      }}
     >
       {children}
     </UpdateWorkspaceModalContext.Provider>

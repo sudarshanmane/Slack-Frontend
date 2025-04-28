@@ -11,7 +11,7 @@ const WorkspacePanel = () => {
 
   if (isFetching) {
     return (
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center h-full">
         <Loader className="animate-spin transition text-white"></Loader>
       </div>
     );
@@ -19,7 +19,7 @@ const WorkspacePanel = () => {
 
   if (!isSuccess) {
     return (
-      <div className="w-full h-[100vh] flex justify-center items-center ">
+      <div className="w-full h-[100vh] flex justify-center items-center p-2">
         <div
           className={
             " border w-[400px] flex flex-wrap break-words p-2 rounded bg-red-100 text-center text-red-600  font-semibold justify-center items-center "
