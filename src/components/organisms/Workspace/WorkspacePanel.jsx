@@ -1,12 +1,18 @@
 import WorkspacePanelHeader from "@/components/molecules/Workspace/WorkspacePanelHeader.jsx";
 import { useGetWorkspaceById } from "@/hooks/workspace/useGetWorkspaceById.js";
-import { AlertTriangleIcon, Loader, MessageSquareTextIcon } from "lucide-react";
+import {
+  AlertTriangleIcon,
+  HashIcon,
+  Loader,
+  MessageSquareTextIcon,
+} from "lucide-react";
 import React from "react";
 import { useParams } from "react-router-dom";
 import SidebarItem from "./../../atoms/SidebarItem/SidebarItem";
+import WorkspacePanelSection from "@/components/molecules/Workspace/WorkspacePanelSection.jsx";
 
 const WorkspacePanel = () => {
-  const { workspaceId } = useParams();
+  const { workspaceId, channelId } = useParams();
 
   const { isFetching, workspace, isSuccess } = useGetWorkspaceById(workspaceId);
 
@@ -36,13 +42,33 @@ const WorkspacePanel = () => {
   return (
     <div className="flex flex-col bg-[#5E2C5F] w-full">
       <WorkspacePanelHeader workspace={workspace}></WorkspacePanelHeader>
-      <div className="flex w-full justify-center items-center mt-2">
-        <SidebarItem
-          label="Threads"
-          Icon={MessageSquareTextIcon}
-          id="Threads"
-          variant={"active"}
-        ></SidebarItem>
+      <div className="flex w-full justify-center items-start mt-2 h-full flex-col gap-1">
+        <div className="ml-3 flex w-full">
+          <SidebarItem
+            label="Threads"
+            Icon={MessageSquareTextIcon}
+            id="Threads"
+            variant={"active"}
+          ></SidebarItem>
+        </div>
+        <WorkspacePanelSection label={"Channels"} workspace={workspace}>
+          <div className="flex w-full justify-center items-center mt-2 h-full flex-col gap-1 p">
+            {workspace &&
+              workspace.channels.map((el) => {
+                console.log(el, channelId);
+
+                return (
+                  <SidebarItem
+                    key={el._id}
+                    Icon={HashIcon}
+                    label={el.name}
+                    id={el._id}
+                    variant={channelId === el._id ? "active" : "default"}
+                  ></SidebarItem>
+                );
+              })}
+          </div>
+        </WorkspacePanelSection>
       </div>
     </div>
   );

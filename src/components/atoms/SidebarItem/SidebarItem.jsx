@@ -24,7 +24,7 @@ const SidebarItem = ({ label, Icon, id, variant }) => {
       }
     >
       <Link
-        to={`/workspaces/${workspaceId}/channels/:${id}`}
+        to={`/workspaces/${workspaceId}/channels/${id}`}
         className="flex items-center justify-center"
       >
         <Icon className="size-3.5 mr-1 "></Icon>

@@ -8,8 +8,6 @@ import {
 import { Input } from "@/components/ui/input.jsx";
 import { useCreateChannel } from "@/hooks/channel/useCreateChannel.js";
 import useCreateChannelModal from "@/hooks/context/useCreateChannelModal.js";
-import { useAuth } from "@/hooks/context/userAuth.js";
-import { useUpdateWorkspace } from "@/hooks/workspace/useUpdateWorkpace.js";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -34,6 +32,7 @@ const CreateChannelModal = () => {
   useEffect(() => {
     if (isSuccess && !isPending) {
       toast("Channel Created Successfully!");
+      setOpenCreateChannelModal(false);
     }
   }, [isSuccess, isPending]);
 
