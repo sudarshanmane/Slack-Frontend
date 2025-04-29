@@ -6,6 +6,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog.jsx";
 import { Input } from "@/components/ui/input.jsx";
+import { useCreateChannel } from "@/hooks/channel/useCreateChannel.js";
 import useCreateChannelModal from "@/hooks/context/useCreateChannelModal.js";
 import { useAuth } from "@/hooks/context/userAuth.js";
 import { useUpdateWorkspace } from "@/hooks/workspace/useUpdateWorkpace.js";
@@ -16,25 +17,23 @@ const CreateChannelModal = () => {
   const { openCreateChannelModal, setOpenCreateChannelModal } =
     useCreateChannelModal();
 
-  const { workspaceId } = useAuth();
-
   const [channel, setChannel] = useState({ name: "" });
 
   const handleClose = () => {
     setOpenCreateChannelModal(false);
   };
 
-  const { isSuccess, isPending, updateWorspaceMutation } = useUpdateWorkspace();
+  const { isSuccess, isPending, createChannelMutation } = useCreateChannel();
 
   const handleSubmitForm = async (e) => {
     e.preventDefault();
 
-    await updateWorspaceMutation(channel);
+    await createChannelMutation(channel);
   };
 
   useEffect(() => {
     if (isSuccess && !isPending) {
-      toast("Channel Added Successfully!");
+      toast("Channel Created Successfully!");
     }
   }, [isSuccess, isPending]);
 

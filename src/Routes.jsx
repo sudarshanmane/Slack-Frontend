@@ -53,6 +53,15 @@ export const AppRoutes = () => {
         }
       ></Route>
 
+      <Route
+        path="/workspaces/:workspaceId/channels/:channelId"
+        element={
+          <ProtectedRoutes>
+            <WokrspaceLayout></WokrspaceLayout>
+          </ProtectedRoutes>
+        }
+      ></Route>
+
       {/* protected Routes */}
 
       {/* <Route path="/" element={<ProtectedRoutes></ProtectedRoutes>}> */}
